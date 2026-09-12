@@ -45,20 +45,30 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 /** @var object $router **/
 
 $router->get('/', 'Welcome::index');
+$router->get('/create_users', 'UsersController::create_users', ['GET', 'POST'])->middleware('auth');
+$router->post('/create_users', 'UsersController::create_users')->middleware('auth');
+$router->get('/delete_users/{id}', 'UsersController::delete');
+$router->get('/update_users/{id}', 'UsersController::update');
+$router->get('/restore_users/{id}', 'UsersController::restore');
 
-$router->get('/show-users', 'UserController::show_users');
+$router->get('/ProductViews', 'ProductController::ProductViews')->middleware('auth');
+$router->get('/products', 'ProductController::index')->middleware('auth');
+$router->any('/products/create', 'ProductController::create')->middleware('auth');
+$router->any('/products/edit/{id}', 'ProductController::edit')->middleware('auth');
+$router->get('/products/delete/{id}', 'ProductController::delete')->middleware('auth');
+$router->get('/login', function() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $_SESSION['logged_in'] = true;
+    echo "You are now logged in!";
+});
+$router->get('/not_logged_in', function() {
+    echo "Please logged in first!";
+});
+$router->get('/logout', function() {
+    $_SESSION['logged_in'] = false;
+    echo "You are now logged out!";
+});
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-$router->get('/student', 'StudentController::index');
-$router->get('/student/profile', 'StudentController::profile') ->middleware('student');
