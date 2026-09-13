@@ -16,4 +16,15 @@ class UserModel extends Model {
     {
         parent::__construct();
     }
+    public function insert_user($data) {
+        return $this->db->table($this->table)->insert($data);
+    }
+
+    public function delete_user($id) {
+        return $this->db->table($this->table)->where('id', $id)->delete();
+    }
+
+    public function get_user_by_username($username) {
+        return $this->db->table($this->table)->where('username', $username)->get();
+    }
 }

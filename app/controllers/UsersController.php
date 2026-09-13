@@ -11,29 +11,46 @@ class UsersController extends Controller {
     {
         parent::__construct();
     }
-
-    public function create_users()
-    {
+public function create_users() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $this->io->post('username');
-            $password = $this->io->post('password');
+            $username         = $this->io->post('username');
+            $password         = $this->io->post('password');
             $confirm_password = $this->io->post('confirm_password');
 
-            // Validation para sa password matching
             if ($password !== $confirm_password) {
-                echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
-                return;
+                echo "<script>alert('Password and Confirm Password do not match!'); window.history.back();</script>";
+                exit();
             }
 
-            $this->call->model('UserModel');
+            // Secure Hashing
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            if ($this->UserModel->insert_user($username, $password)) {
-                echo "<script>alert('User successfully added!'); window.location.href='/create_users';</script>";
-            } else {
-                echo "<script>alert('Failed to insert user.'); window.history.back();</script>";
+            $data = [
+                'username' => $username,
+                'password' => $hashed_password
+            ];
+
+            if ($this->UserModel->insert_user($data)) {
+                echo "<script>alert('User successfully added!'); window.location.href='/ProductViews';</script>";
+                exit();
             }
-            return;
         }
+
+        // I-load ang view kapag GET request
         $this->call->view('create_users');
+        $users = $this->UserModel->all();
+        ddt($users, 'Users Tables');
+    }
+
+    public function delete($id) {
+        if ($this->UserModel->delete_user($id)) {
+            redirect('/ProductViews');
+        }
+    }
+
+    public function update($id) {
+    }
+
+    public function restore($id) {
     }
 }
