@@ -11,7 +11,42 @@ class UsersController extends Controller {
     {
         parent::__construct();
     }
-public function create_users() {
+public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $this->io->post('username');
+            $password = $this->io->post('password');
+
+            $user = $this->UserModel->get_user_by_username($username);
+
+            if ($user && password_verify($password, $user['password'])) {
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+                $_SESSION['logged_in'] = true;
+                $_SESSION['username']  = $user['username'];
+
+                echo "<script>alert('Login successful!'); window.location.href='/ProductViews';</script>";
+                exit();
+            } else {
+                echo "<script>alert('Invalid username or password!'); window.history.back();</script>";
+                exit();
+            }
+        }
+
+        $this->call->view('login');
+    }
+
+    public function logout() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION['logged_in'] = false;
+        session_destroy();
+        echo "<script>alert('You are now logged out!'); window.location.href='/login';</script>";
+        exit();
+    }
+
+    public function create_users() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username         = $this->io->post('username');
             $password         = $this->io->post('password');
@@ -31,15 +66,12 @@ public function create_users() {
             ];
 
             if ($this->UserModel->insert_user($data)) {
-                echo "<script>alert('User successfully added!'); window.location.href='/ProductViews';</script>";
+                echo "<script>alert('User successfully added!'); window.location.href='/login';</script>";
                 exit();
             }
         }
 
-        // I-load ang view kapag GET request
         $this->call->view('create_users');
-        $users = $this->UserModel->all();
-        ddt($users, 'Users Tables');
     }
 
     public function delete($id) {

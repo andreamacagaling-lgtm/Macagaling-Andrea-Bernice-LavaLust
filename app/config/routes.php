@@ -46,20 +46,14 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 $router->get('/', 'Welcome::index');
 
-$router->get('/login', function() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    $_SESSION['logged_in'] = true;
-    echo "You are now logged in!";
-});
+$router->get('/login', 'UsersController::login');
+$router->post('/login', 'UsersController::login');
+
 $router->get('/not_logged_in', function() {
     echo "Please logged in first!";
 });
-$router->get('/logout', function() {
-    $_SESSION['logged_in'] = false;
-    echo "You are now logged out!";
-});
+
+$router->get('/logout', 'UsersController::logout');
 
 $router->get('/create_users', 'UsersController::create_users', ['GET', 'POST'])->middleware('auth');
 $router->post('/create_users', 'UsersController::create_users')->middleware('auth');

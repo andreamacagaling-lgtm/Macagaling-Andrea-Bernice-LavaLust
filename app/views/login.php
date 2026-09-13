@@ -4,108 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-<style>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f3effa;
-            margin: 0;
-            padding: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: 100vh;
         }
-        .card {
+
+        .container {
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(106, 27, 154, 0.1);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(106, 27, 154, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
         }
+
         h2 {
             color: #4a148c;
-            margin-top: 0;
-            border-bottom: 3px solid #e1bee7;
-            padding-bottom: 10px;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: 700;
         }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
+
         label {
             display: block;
-            font-weight: bold;
+            font-weight: 600;
             color: #4a148c;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
-        input[type="text"], input[type="password"] {
+
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ba68c8;
-            border-radius: 6px;
-            box-sizing: border-box;
-            background-color: #f8f4fc;
+            padding: 12px 14px;
+            border: 1.5px solid #ce93d8;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #fcfaff;
+            transition: all 0.2s ease-in-out;
         }
-        button {
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #7b1fa2;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.15);
+        }
+
+        input[type="submit"] {
+            width: 100%;
             background-color: #7b1fa2;
             color: #ffffff;
             border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
             cursor: pointer;
-            width: 100%;
+            transition: background-color 0.2s ease-in-out;
             margin-top: 10px;
         }
-        button:hover {
+
+        input[type="submit"]:hover {
             background-color: #4a148c;
         }
-        .error-msg {
-            color: #d32f2f;
-            background-color: #ffebee;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        .register-link {
+
+        .link-text {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 18px;
             font-size: 14px;
         }
-        .register-link a {
+
+        .link-text a {
             color: #7b1fa2;
-            font-weight: bold;
+            font-weight: 600;
             text-decoration: none;
         }
-        .register-link a:hover {
+
+        .link-text a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="card">
+
+    <div class="container">
         <h2>Login</h2>
 
-        <?php if (!empty($error)): ?>
-            <div class="error-msg"><?= htmlspecialchars($error); ?></div>
-        <?php endif; ?>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" 
+            </div>
 
-        <form action="/login" method="POST">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" 
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Login</button>
+
+            <input type="submit" value="Login">
         </form>
 
-        <div class="register-link">
-            Don't have an account? <a href="/create_users">Create User</a>
+        <div class="link-text">
+            Don't have an account yet? <a href="/create_users">Create users</a>
         </div>
     </div>
+
 </body>
 </html>
