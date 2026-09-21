@@ -13,8 +13,8 @@ class UsersController extends Controller {
     }
 public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $this->io->post('username');
-            $password = $this->io->post('password');
+            $username = $this->request->post('username');
+            $password = $this->request->post('password');
 
             $user = $this->UserModel->get_user_by_username($username);
 

@@ -26,10 +26,10 @@ class ProductController extends Controller {
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
-                'product_name' => $this->io->post('product_name'),
-                'description'  => $this->io->post('description'),
-                'price'        => $this->io->post('price'),
-                'quantity'     => $this->io->post('quantity')
+                'product_name' => $this->request->post('product_name'),
+                'description'  => $this->request->post('description'),
+                'price'        => $this->request->post('price'),
+                'quantity'     => $this->request->post('quantity')
             ];
 
             if ($this->ProductModel->insert_product($data)) {
@@ -43,10 +43,10 @@ class ProductController extends Controller {
     public function edit($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
-                'product_name' => $this->io->post('product_name'),
-                'description'  => $this->io->post('description'),
-                'price'        => $this->io->post('price'),
-                'quantity'     => $this->io->post('quantity')
+                'product_name' => $this->request->post('product_name'),
+                'description'  => $this->request->post('description'),
+                'price'        => $this->request->post('price'),
+                'quantity'     => $this->request->post('quantity')
             ];
 
             if ($this->ProductModel->update_product($id, $data)) {
