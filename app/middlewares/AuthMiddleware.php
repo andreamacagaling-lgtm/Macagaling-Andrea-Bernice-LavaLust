@@ -16,12 +16,13 @@ class AuthMiddleware
     public function handle(Closure $next)
     {
         // TODO: Add your middleware logic here (authentication, authorization, etc.)
-        if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+       if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
-            redirect('not_logged_in'); 
+        // Papasukin lamang ang user kung HINDI naka-login (!logged_in)
+        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+            redirect('login'); 
             exit();
         }
 

@@ -49,17 +49,18 @@ $router->get('/', 'Welcome::index');
 $router->get('/login', 'UsersController::login');
 $router->post('/login', 'UsersController::login');
 
+$router->match('/create_users', 'UsersController::create_users', ['GET', 'POST']);
+
 $router->get('/not_logged_in', function() {
-    echo "Please logged in first!";
+    echo "Please log in first!";
 });
 
 $router->get('/logout', 'UsersController::logout');
 
-$router->get('/create_users', 'UsersController::create_users', ['GET', 'POST'])->middleware('auth');
-$router->post('/create_users', 'UsersController::create_users')->middleware('auth');
-$router->get('/delete_users/{id}', 'UsersController::delete');
-$router->get('/update_users/{id}', 'UsersController::update');
-$router->get('/restore_users/{id}', 'UsersController::restore');
+// Protected Routes (kailangan naka-login)
+$router->get('/delete_users/{id}', 'UsersController::delete')->middleware('auth');
+$router->get('/update_users/{id}', 'UsersController::update')->middleware('auth');
+$router->get('/restore_users/{id}', 'UsersController::restore')->middleware('auth');
 
 $router->get('/ProductViews', 'ProductController::ProductViews')->middleware('auth');
 $router->get('/products', 'ProductController::index')->middleware('auth');

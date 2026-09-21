@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create_users</title>
-<style>
+    <style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,104 +12,156 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f3effa;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f0fa;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
             background-color: #ffffff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(106, 27, 154, 0.1);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2d9f3;
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
         }
 
-        h2 {
-            color: #4a148c;
-            font-size: 24px;
+        h1 {
+            color: #5a2d82;
+            font-size: 22px;
             text-align: center;
-            margin-bottom: 24px;
-            font-weight: 700;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .alert {
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         label {
             display: block;
-            font-weight: 600;
-            color: #4a148c;
-            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4a2366;
+            margin-bottom: 6px;
             font-size: 14px;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #ce93d8;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border: 1px solid #c2b2e3;
+            border-radius: 4px;
             font-size: 14px;
-            background-color: #fcfaff;
-            transition: all 0.2s ease-in-out;
+            background-color: #faf8fd;
+            outline: none;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
-            outline: none;
-            border-color: #7b1fa2;
+            border-color: #7b3fe4;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(123, 31, 162, 0.15);
+            box-shadow: 0 0 4px rgba(123, 63, 228, 0.25);
         }
 
-        input[type="submit"] {
+        button[type="submit"] {
             width: 100%;
-            background-color: #7b1fa2;
+            background-color: #7b3fe4;
             color: #ffffff;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 11px;
+            border-radius: 4px;
+            font-weight: bold;
             font-size: 15px;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #4a148c;
+        button[type="submit"]:hover {
+            background-color: #632bc4;
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        .footer-link a {
+            color: #7b3fe4;
+            text-decoration: none;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Create Account</h2>
+        <h1>Create Account</h1>
 
-        <form action="/create_users" method="post">
+        <?php if (isset($error)): ?>
+            <div class="alert alert-error">
+                <?= $error ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($success)): ?>
+            <div class="alert alert-success">
+                <?= $success ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= site_url('create_users') ?>" method="POST">
+
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username"
+                <input type="text" name="username" id="username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" 
+                <input type="password" name="password" id="password" required>
             </div>
 
             <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" 
+                <input type="password" name="confirm_password" id="confirm_password" required>
             </div>
 
-            <input type="submit" value="Create User">
+            <button type="submit">Register</button>
+
         </form>
+
+        <div class="footer-link">
+            <a href="<?= site_url('login') ?>">Already have an account? Login</a>
+        </div>
     </div>
 
 </body>
