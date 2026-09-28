@@ -158,7 +158,7 @@
         </form>
 
         <div class="footer-link">
-            <a href="/create_users">Create an account</a>
+            <a href="/create_users">don't have an account? Create an account</a> 
         </div>
     </div>
 

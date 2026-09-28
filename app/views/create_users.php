@@ -160,7 +160,7 @@
         </form>
 
         <div class="footer-link">
-            <a href="<?= site_url('login') ?>">Already have an account? Login</a>
+            <a href="<?= site_url('login') ?>">Already have an account Login</a>
         </div>
     </div>
 

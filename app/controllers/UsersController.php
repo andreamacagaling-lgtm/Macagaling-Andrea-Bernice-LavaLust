@@ -93,12 +93,10 @@ class UsersController extends Controller {
                 $this->session->set_userdata('username', $user['username']);
                 $this->session->set_userdata('logged_in', true);
 
-                // Ipasa ang success message sa login view
                 $this->call->view('login', [
                     'success' => 'Login successful!'
                 ]);
 
-                // Mag-redirect sa /ProductViews pagkatapos ng 1.5 segundo
                 echo "<script>
                     setTimeout(function() {
                         window.location.href = '" . site_url('ProductViews') . "';
@@ -116,7 +114,7 @@ class UsersController extends Controller {
         } else {
             $this->call->view('login');
         }
-    } // <-- Dito idinagdag ang nawawalang brace para sa login() method
+    } 
 
     public function logout()
     {
